@@ -1,0 +1,19 @@
+<!-- appointments.component.html (Professionnel) -->
+
+<div class="appointments-container">
+  <h2>Rendez-vous en Attente</h2>
+
+  <!-- Affichage des rendez-vous en attente -->
+  <ul>
+    <li *ngFor="let appointment of professionalAppointments">
+      {{ appointment.date }} - {{ appointment.time }} - {{ appointment.clientEmail }}
+      <span *ngIf="appointment.status === 'en attente'">
+        <button (click)="confirmAppointment(appointment)">Confirmer</button>
+        <button (click)="cancelAppointment(appointment)">Annuler</button>
+      </span>
+      <span *ngIf="appointment.status === 'confirmé'">
+        Confirmé
+      </span>
+    </li>
+  </ul>
+</div>

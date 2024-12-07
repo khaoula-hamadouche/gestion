@@ -1,0 +1,27 @@
+<!-- appointments.component.html (Client) -->
+
+<div class="appointments-container">
+  <h2>Réserver un Rendez-vous</h2>
+
+  <!-- Sélection de la date et de l'heure -->
+  <div>
+    <label for="date">Date :</label>
+    <input type="date" id="date" [(ngModel)]="selectedDate" />
+
+    <label for="time">Heure :</label>
+    <select id="time" [(ngModel)]="selectedTime">
+      <option *ngFor="let slot of availableTimes" [value]="slot.time">{{ slot.time }}</option>
+    </select>
+  </div>
+
+  <button (click)="bookAppointment()">Réserver le rendez-vous</button>
+
+  <!-- Affichage des rendez-vous existants -->
+  <h3>Mes rendez-vous</h3>
+  <ul>
+    <li *ngFor="let appointment of clientAppointments; let i = index">
+      {{ appointment.date }} - {{ appointment.time }} - {{ appointment.status }}
+      <button *ngIf="appointment.status === 'en attente'" (click)="cancelAppointment(i)">Annuler</button>
+    </li>
+  </ul>
+</div>
