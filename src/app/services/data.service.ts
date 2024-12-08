@@ -8,6 +8,8 @@ export class DataService {
   private users = [
     { email: 'client@example.com', password: '123', userType: 'client' },
     { email: 'pro@example.com', password: '123', userType: 'professional' },
+    { email: 'pro1@example.com', password: '123', userType: 'professional' },
+
   ];
 
   // Disponibilités des professionnels
@@ -15,7 +17,11 @@ export class DataService {
     { date: '2024-12-06', time: '09:00', professionalEmail: 'pro@example.com', available: true },
     { date: '2024-12-06', time: '10:00', professionalEmail: 'pro@example.com', available: false },
     { date: '2024-12-06', time: '11:00', professionalEmail: 'pro@example.com', available: true },
+    { date: '2024-12-09', time: '10:00', professionalEmail: 'pro1@example.com', available: true },
+    { date: '2024-12-10', time: '13:00', professionalEmail: 'pro1@example.com', available: false },
+    { date: '2024-12-11', time: '16:00', professionalEmail: 'pro1@example.com', available: true },
   ];
+
 
   // Rendez-vous
   private appointments: {

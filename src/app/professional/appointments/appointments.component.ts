@@ -12,10 +12,10 @@ export class ProfessionalAppointmentsComponent implements OnInit {
 
   constructor(private dataService: DataService) {}
 
-  ngOnInit(): void {
-    this.professionalAppointments = this.dataService.getProfessionalAppointments(this.professionalEmail);
-  }
-
+ngOnInit(): void {
+  this.professionalAppointments = this.dataService.getProfessionalAppointments(this.professionalEmail);
+  console.log('Rendez-vous récupérés:', this.professionalAppointments); // Débogage
+}
   confirmAppointment(appointment: { date: string; time: string; clientEmail: string }) {
     this.dataService.confirmAppointment(
       appointment.date,

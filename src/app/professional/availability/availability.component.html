@@ -4,14 +4,14 @@
   <!-- Formulaire pour ajouter une nouvelle disponibilité -->
   <div class="add-availability-form">
     <input
-      type="date"
-      [(ngModel)]="newAvailability.date"
-      placeholder="Date"
+            type="date"
+            [(ngModel)]="newAvailability.date"
+            placeholder="Date"
     />
     <input
-      type="time"
-      [(ngModel)]="newAvailability.time"
-      placeholder="Heure"
+            type="time"
+            [(ngModel)]="newAvailability.time"
+            placeholder="Heure"
     />
     <button (click)="addAvailability()">Ajouter disponibilité</button>
   </div>
@@ -24,7 +24,6 @@
       </button>
       <button (click)="editAvailability(i)">Modifier</button>
       <button (click)="deleteAvailability(i)">Supprimer</button>
-      <router-outlet></router-outlet>
 
     </li>
   </ul>

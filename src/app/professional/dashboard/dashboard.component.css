@@ -1,0 +1,47 @@
+/* dashboard.component.css */
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 600px;
+  background-color: #f9f9f9; /* Couleur de fond douce */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container h1 {
+  font-size: 24px;
+  color: #333; /* Couleur du texte */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+nav {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+nav button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff; /* Couleur du texte du bouton */
+  background-color: #007bff; /* Couleur primaire */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+  background-color: #0056b3; /* Couleur au survol */
+}
+
+nav button:focus {
+  outline: none;
+  box-shadow: 0 0 4px #007bff;
+}

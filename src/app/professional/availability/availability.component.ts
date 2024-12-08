@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; // Importer RouterModule
 import { DataService } from '../../services/data.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-availability',
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.css'],
   standalone: true, // Indiquer que ce composant est standalone
-  imports: [CommonModule, RouterModule]  // Ajouter RouterModule ici
+  imports: [CommonModule, RouterModule, FormsModule]  // Ajouter RouterModule ici
 })
 export class AvailabilityComponent {
   availabilities: { date: string; time: string; available: boolean; professionalEmail: string }[] = [];

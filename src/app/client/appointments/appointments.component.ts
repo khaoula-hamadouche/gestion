@@ -60,4 +60,5 @@ export class ClientAppointmentsComponent implements OnInit {
       this.dataService.cancelClientAppointment(this.clientEmail, appointment.date, appointment.time);
     }
   }
+
 }

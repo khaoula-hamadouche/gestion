@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'; // Importer Router pour la navigation
 
 @Component({
   selector: 'app-client-dashboard',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css'],
 })
 export class ClientDashboardComponent {
-  constructor() {}
+  constructor(private router: Router) {}
+
+  // Méthode pour naviguer vers les rendez-vous
+  navigateToAppointments() {
+    this.router.navigate(['client-appointments']);
+  }
 }
