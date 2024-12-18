@@ -1,26 +1,42 @@
-<!-- appointments.component.html (Client) -->
-
 <div class="appointments-container">
   <h2>Réserver un Rendez-vous</h2>
 
-  <!-- Sélection de la date et de l'heure -->
+  <!-- Sélection de la date -->
   <div>
     <label for="date">Date :</label>
-    <input type="date" id="date" [(ngModel)]="selectedDate" />
+    <input
+      type="date"
+      id="date"
+      [(ngModel)]="selectedDate"
+      (change)="loadAvailableTimes()"
+      required
+    />
 
-    <label for="time">Heure :</label>
-    <select id="time" [(ngModel)]="selectedTime">
-      <option *ngFor="let slot of availableTimes" [value]="slot.time">{{ slot.time }}</option>
-    </select>
+    <!-- Affichage des heures disponibles pour la date sélectionnée -->
+    <div *ngIf="availableTimes.length > 0">
+      <label for="time">Heure :</label>
+      <select id="time" [(ngModel)]="selectedTime">
+        <option *ngFor="let slot of availableTimes" [value]="slot.time">
+          {{ slot.time }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
   </div>
 
-  <button (click)="bookAppointment()">Réserver le rendez-vous</button>
+  <!-- Bouton de réservation -->
+  <button [disabled]="!selectedTime" (click)="bookAppointment()">Réserver le rendez-vous</button>
 
   <!-- Affichage des rendez-vous existants -->
   <h3>Mes rendez-vous</h3>
   <ul>
     <li *ngFor="let appointment of clientAppointments; let i = index">
-      {{ appointment.date }} - {{ appointment.time }} - {{ appointment.status }}
+      <strong>{{ appointment.date }}</strong> - <em>{{ appointment.time }}</em> -
+      <span [class]="getStatusClass(appointment.status)">
+        {{ appointment.status | titlecase }}
+      </span>
       <button *ngIf="appointment.status === 'en attente'" (click)="cancelAppointment(i)">Annuler</button>
     </li>
   </ul>

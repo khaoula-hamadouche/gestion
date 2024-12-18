@@ -8,8 +8,6 @@ export class DataService {
   private users = [
     { email: 'client@example.com', password: '123', userType: 'client' },
     { email: 'pro@example.com', password: '123', userType: 'professional' },
-    { email: 'pro1@example.com', password: '123', userType: 'professional' },
-
   ];
 
   // Disponibilités des professionnels
@@ -17,11 +15,7 @@ export class DataService {
     { date: '2024-12-06', time: '09:00', professionalEmail: 'pro@example.com', available: true },
     { date: '2024-12-06', time: '10:00', professionalEmail: 'pro@example.com', available: false },
     { date: '2024-12-06', time: '11:00', professionalEmail: 'pro@example.com', available: true },
-    { date: '2024-12-09', time: '10:00', professionalEmail: 'pro1@example.com', available: true },
-    { date: '2024-12-10', time: '13:00', professionalEmail: 'pro1@example.com', available: false },
-    { date: '2024-12-11', time: '16:00', professionalEmail: 'pro1@example.com', available: true },
   ];
-
 
   // Rendez-vous
   private appointments: {
@@ -59,7 +53,12 @@ export class DataService {
     return this.appointments.filter(appointment => appointment.professionalEmail === professionalEmail);
   }
 
-  // Récupérer les disponibilités
+  // Récupérer les disponibilités d'un professionnel spécifique
+  getProfessionalAvailabilities(professionalEmail: string) {
+    return this.availabilities.filter(avail => avail.professionalEmail === professionalEmail && avail.available);
+  }
+
+  // Récupérer toutes les disponibilités
   getAvailabilities() {
     return this.availabilities;
   }
@@ -79,14 +78,19 @@ export class DataService {
     this.availabilities.splice(index, 1);
   }
 
-  // Réserver un rendez-vous
+  // Ajouter un rendez-vous
   bookAppointment(newAppointment: { date: string; time: string; professionalEmail: string; clientEmail: string }) {
     const availability = this.availabilities.find(
-      avail => avail.date === newAppointment.date && avail.time === newAppointment.time && avail.available
+      avail =>
+        avail.date === newAppointment.date &&
+        avail.time === newAppointment.time &&
+        avail.professionalEmail === newAppointment.professionalEmail &&
+        avail.available
     );
 
     if (!availability) {
-      return false; // Créneau non disponible
+      console.error('Créneau non disponible ou email professionnel incorrect.');
+      return false;
     }
 
     // Ajouter le rendez-vous
@@ -95,57 +99,38 @@ export class DataService {
       time: newAppointment.time,
       professionalEmail: newAppointment.professionalEmail,
       clientEmail: newAppointment.clientEmail,
-      status: 'en attente', // Le statut initial est "en attente"
+      status: 'en attente',
     });
 
-    // Marquer le créneau comme non disponible
+    console.log('Rendez-vous ajouté:', this.appointments); // Log pour débogage
+
+    // Rendre le créneau indisponible
     availability.available = false;
     return true;
   }
 
   // Confirmer un rendez-vous côté professionnel
-  confirmAppointment(date: string, time: string, professionalEmail: string, clientEmail: string) {
+  confirmAppointment(professionalEmail: string, date: string, time: string) {
     const appointment = this.appointments.find(
-      (a) =>
-        a.date === date &&
-        a.time === time &&
-        a.professionalEmail === professionalEmail &&
-        a.clientEmail === clientEmail &&
-        a.status === 'en attente'
+      a => a.date === date && a.time === time && a.professionalEmail === professionalEmail
     );
-
     if (appointment) {
-      appointment.status = 'confirmé'; // Le rendez-vous est maintenant confirmé
+      appointment.status = 'confirmé';
     } else {
-      throw new Error('Rendez-vous non trouvé ou déjà confirmé.');
+      throw new Error('Rendez-vous non trouvé.');
     }
   }
 
   // Annuler un rendez-vous côté professionnel
-  cancelAppointment(date: string, time: string, professionalEmail: string, clientEmail: string) {
+  cancelAppointment(professionalEmail: string, date: string, time: string) {
     const appointmentIndex = this.appointments.findIndex(
-      (a) =>
-        a.date === date &&
-        a.time === time &&
-        a.professionalEmail === professionalEmail &&
-        a.clientEmail === clientEmail
+      a => a.date === date && a.time === time && a.professionalEmail === professionalEmail
     );
-
     if (appointmentIndex !== -1) {
-      const [appointment] = this.appointments.splice(appointmentIndex, 1); // Supprimer le rendez-vous
-
-      // Rendre le créneau disponible à nouveau
-      const availability = this.availabilities.find(
-        (avail) => avail.date === date && avail.time === time
-      );
-      if (availability) {
-        availability.available = true;
-      }
-
-      return true; // Rendez-vous annulé avec succès
+      this.appointments.splice(appointmentIndex, 1);
+    } else {
+      throw new Error('Rendez-vous non trouvé.');
     }
-
-    throw new Error('Rendez-vous non trouvé.');
   }
 
   // Annuler un rendez-vous côté client

@@ -1,0 +1,86 @@
+.appointments-container {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+button:nth-child(2):hover {
+  background-color: #a71d2a;
+}
+
+li span {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #856404;
+  background-color: #fff3cd;
+}
+
+.status-confirmed {
+  color: #155724;
+  background-color: #d4edda;
+}
+
+.status-cancelled {
+  color: #721c24;
+  background-color: #f8d7da;
+}

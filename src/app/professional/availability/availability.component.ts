@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.css'],
   standalone: true, // Indiquer que ce composant est standalone
-  imports: [CommonModule, RouterModule, FormsModule]  // Ajouter RouterModule ici
+  imports: [CommonModule, RouterModule, FormsModule] // Ajouter les modules nécessaires
 })
 export class AvailabilityComponent {
   availabilities: { date: string; time: string; available: boolean; professionalEmail: string }[] = [];
@@ -19,11 +19,13 @@ export class AvailabilityComponent {
     this.availabilities = this.dataService.getAvailabilities();
   }
 
+  // Basculer la disponibilité entre Disponible et Indisponible
   toggleAvailability(index: number) {
     this.availabilities[index].available = !this.availabilities[index].available;
     this.dataService.updateAvailabilities(this.availabilities);
   }
 
+  // Ajouter une nouvelle disponibilité
   addAvailability() {
     if (this.newAvailability.date && this.newAvailability.time) {
       this.dataService.addAvailability(this.newAvailability);
@@ -34,6 +36,7 @@ export class AvailabilityComponent {
     }
   }
 
+  // Modifier une disponibilité existante
   editAvailability(index: number) {
     const updatedAvailability = { ...this.availabilities[index] };
     const date = prompt('Entrez la nouvelle date', updatedAvailability.date);
@@ -51,6 +54,7 @@ export class AvailabilityComponent {
     }
   }
 
+  // Supprimer une disponibilité existante
   deleteAvailability(index: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?')) {
       this.dataService.deleteAvailability(index);
